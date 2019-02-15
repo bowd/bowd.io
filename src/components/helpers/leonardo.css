@@ -1,9 +1,13 @@
 body.dark .leonardo-widget {
-  --bg: #333;
+  --bg: #444444;
+  --ctrls-bg: #444444ee;
+  --selected-bg: #bbaa9999;
 }
 
 body.light .leonardo-widget {
   --bg: #eee;
+  --ctrls-bg: #eeeeeeee;
+  --selected-bg: #00009944;
 }
 
 .leonardo-widget {
@@ -47,7 +51,7 @@ body.light .leonardo-widget {
   position: absolute;
   top: 0px;
   padding: 10px 20px;
-  background: #eeeeeeee;
+  background: var(--ctrls-bg);
   font-size: 12px;
 }
 .leonardo-widget .item-toggle {
@@ -61,11 +65,11 @@ body.light .leonardo-widget {
 .leonardo-widget .item-toggle span {
   display: inline-block;
   padding: 0px 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer
 }
 
 .leonardo-widget .item-toggle span[data-selected='true'] {
-  background: #00009944;
+  background: var(--selected-bg);
 }
 
