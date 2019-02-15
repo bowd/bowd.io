@@ -52,6 +52,7 @@ Finally I started to do what every computer scientist knows best, actually build
 With a little help from React I built this nifty widget that computes the desired sequence $x_k$ for consecutive $n$. The first column is $n$, the next are the members of the set. You can use the toggle at the top to switch between the actual Leonardo numbers or the Leonardo sequence indices.
 
 <leonardo-vizualizer></leonardo-vizualizer>
+Source on [github](https://github.com/bowd/bowd.io/blob/master/src/components/helpers/leonardo.js).
 
 You might have noticed that for the $n=1$ I actually use $L_1$ instead of $L_0$ this is intentional and actually part of the nifty solution. You can already start to see some pretty clear patterns and recursion emerge.
 
