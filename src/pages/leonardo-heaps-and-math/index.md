@@ -15,7 +15,7 @@ I will not go in depth about the Leonardo Heap as I want to follow up with a pos
 
 ### The lesser known Leonardo numbers
 
-Everybody knows about Fibonacci, one of my favourite sequences
+Everybody knows about Fibonacci, but the lesser known Leonardo numbers are fun as well:
 
 $\displaystyle
 L_0 = 1 \newline
