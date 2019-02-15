@@ -1,0 +1,71 @@
+body.dark .leonardo-widget {
+  --bg: #333;
+}
+
+body.light .leonardo-widget {
+  --bg: #eee;
+}
+
+.leonardo-widget {
+  background: var(--bg);
+  position: relative;
+}
+
+.leonardo-widget .scroll-container {
+  padding: 20px;
+  padding-top: 75px;
+  height: 400px;
+  overflow: scroll;
+  font-family: monospace;
+}
+
+
+.leonardo-widget .row {
+  height: 22px;
+}
+
+.leonardo-widget .index {
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.leonardo-widget .item {
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
+  border-left: 1px solid var(--bg);
+  border-top: 1px solid var(--bg);
+  border-radius: 4px;
+}
+
+.leonardo-widget .controls {
+  position: absolute;
+  top: 0px;
+  padding: 10px 20px;
+  background: #eeeeeeee;
+  font-size: 12px;
+}
+.leonardo-widget .item-toggle {
+}
+
+.leonardo-widget .controls .n {
+  margin-top: 5px;
+}
+
+
+.leonardo-widget .item-toggle span {
+  display: inline-block;
+  padding: 0px 5px;
+  border-radius: 10px;
+  cursor: pointer
+}
+
+.leonardo-widget .item-toggle span[data-selected='true'] {
+  background: #00009944;
+}
+

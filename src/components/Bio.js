@@ -10,8 +10,8 @@ class Bio extends React.Component {
           marginBottom: rhythm(2),
         }}
       >
-        <p style={{ maxWidth: 450 }}>
-          Thougts about tech, music and the crypto-future.
+        <p style={{ maxWidth: 500 }}>
+          Musings on tech, books, music and the crypto-future.
         </p>
       </div>
     );

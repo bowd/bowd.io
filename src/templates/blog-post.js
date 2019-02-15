@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
+import rehypeReact from "rehype-react"
 
 import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
@@ -15,12 +16,21 @@ import {
   createLanguageLink,
   loadFontsForCode,
 } from '../utils/i18n';
+import helpers from '../components/helpers';
+require(`katex/dist/katex.min.css`)
 
 const GITHUB_USERNAME = 'bowd';
 const GITHUB_REPO_NAME = 'bowd.io';
 const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif`;
+
+const Counter = () => (<span> Hello world </span>);
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  components: helpers,
+}).Compiler
 
 class Translations extends React.Component {
   render() {
@@ -98,20 +108,22 @@ class BlogPostTemplate extends React.Component {
       translatedLinks,
     } = this.props.pageContext;
     const lang = post.fields.langKey;
+    const html = post.htmlAst
+    console.log(html)
 
     // Replace original links with translated when available.
-    let html = post.html;
-    translatedLinks.forEach(link => {
-      // jeez
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      }
-      let translatedLink = '/' + lang + link;
-      html = html.replace(
-        new RegExp('"' + escapeRegExp(link) + '"', 'g'),
-        '"' + translatedLink + '"'
-      );
-    });
+    // let html = post.html;
+    // translatedLinks.forEach(link => {
+    //   // jeez
+    //   function escapeRegExp(str) {
+    //     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    //   }
+    //   let translatedLink = '/' + lang + link;
+    //   html = html.replace(
+    //     new RegExp('"' + escapeRegExp(link) + '"', 'g'),
+    //     '"' + translatedLink + '"'
+    //   );
+    // });
 
     translations = translations.slice();
     translations.sort((a, b) => {
@@ -164,7 +176,7 @@ class BlogPostTemplate extends React.Component {
                 />
               )}
             </header>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            { renderAst(html) }
             <footer>
               <p>
                 <a href={discussUrl} target="_blank" rel="noopener noreferrer">
@@ -242,7 +254,7 @@ export const pageQuery = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
-      html
+      htmlAst
       timeToRead
       frontmatter {
         title
