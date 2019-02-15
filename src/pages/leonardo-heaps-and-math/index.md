@@ -36,7 +36,7 @@ Now in order for Leonardo heaps to work we must prove that:
 
 I really wanted to prove these two conjectures are true myself so I stopped reading and picked up a pencil. I have to say it was harder than it should have been, so let's get to it.
 
-> Caveat: I'm pretty rust when it comes to math so pretty please let me know if I get stuff wrong, there's a link to the github page of this article right at the end.
+> Caveat: I'm pretty rusty when it comes to math so pretty please let me know if I get stuff wrong, there's a link to the github page of this article right at the end.
 
 $\displaystyle
 \forall n \in ℕ, \exist x_k \textrm{ such that }
