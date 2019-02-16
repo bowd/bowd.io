@@ -1,8 +1,7 @@
 import React from 'react';
 import range from 'lodash/range'
-import './leonardo.css';
 
-class Vizualizer extends React.Component {
+export class Vizualizer extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -70,8 +69,7 @@ const color = (n) => {
   return "#" + padded +"aa";
 }
 
-
-const leonardoSets = (n) => {
+export const leonardoSets = (n) => {
   const sets = {
     1: [1],
     2: [0,1],
@@ -106,7 +104,7 @@ const occurancesInSet = (set, index) => {
   return set.indexOf(index) == -1 ? 0 : 1;
 }
 
-const leonardoNumbersTill = (n) => {
+export const leonardoNumbersTill = (n) => {
   const leonardoNumbers = [1, 1]
   while (leonardoNumbers[leonardoNumbers.length-1] < n) {
     leonardoNumbers.push(
@@ -116,14 +114,5 @@ const leonardoNumbersTill = (n) => {
     )
   }
   return leonardoNumbers;
-}
-
-
-
-export default {
-  namespace: "leonardo",
-  components: {
-    vizualizer: Vizualizer
-  }
 }
 

@@ -1,6 +1,6 @@
 body.dark .leonardo-widget {
-  --bg: #444444;
-  --ctrls-bg: #444444ee;
+  --bg: #393f4c;
+  --ctrls-bg: #393f4cee;
   --selected-bg: #bbaa9999;
 }
 
@@ -13,6 +13,7 @@ body.light .leonardo-widget {
 .leonardo-widget {
   background: var(--bg);
   position: relative;
+  margin-bottom: 10px;
 }
 
 .leonardo-widget .scroll-container {
@@ -71,5 +72,38 @@ body.light .leonardo-widget {
 
 .leonardo-widget .item-toggle span[data-selected='true'] {
   background: var(--selected-bg);
+}
+
+.leonardo-widget .set {
+  padding: 20px 0 0 20px;
+
+}
+
+
+.leonardo-widget .heap {
+  padding: 10px;
+  height: 200px;
+}
+
+.leonardo-widget .heap > svg {
+  position: relative;
+  top: 30px;
+}
+
+.leonardo-widget .heap > svg:nth-child(1) {
+  margin-left: -30px;
+}
+
+.leonardo-widget .heap > svg:not(:nth-child(1)) {
+  margin-left: -100px;
+}
+
+.leonardo-widget .heap text {
+  transform: rotate(270deg) translate(-22px, 9px);
+  font-size: 13px;
+}
+
+.leonardo-widget .heap circle {
+  transform: translateX(8px);
 }
 

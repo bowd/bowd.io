@@ -1,5 +1,5 @@
 const helpers = [
-  require('./leonardo.js').default,
+  require('./leonardo/index.js').default,
 ]
 
 const flattenComponents = () => {
