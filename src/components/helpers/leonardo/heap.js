@@ -72,9 +72,9 @@ export class LeonardoHeap {
       const li1 = leonardoIndex(trees[trees.length-1].length)
       const li2 = leonardoIndex(trees[trees.length-2].length)
       if (li1 + 1 == li2 || (li1 == li2 == 1)) {
-        const tree1 = trees.pop()
-        const tree2 = trees.pop()
-        trees.push(new Tree(item, tree1, tree2))
+        const right = trees.pop()
+        const left = trees.pop()
+        trees.push(new Tree(item, left, right))
       } else {
         trees.push(new Tree(item))
       }
@@ -87,7 +87,7 @@ export class LeonardoHeap {
       trees.pop()
     } else {
       const last = trees.pop()
-      this.trees = [...trees, last.right, last.left]
+      this.trees = [...trees, last.left, last.right]
     }
   }
 
@@ -109,14 +109,14 @@ class Tree {
   toData() {
     return {
       name: this.root,
-      children: [this.left.toData(), this.right.toData()].filter(c => c != null)
+      children: [this.right.toData(), this.left.toData()].filter(c => c != null)
     }
   }
 
   walk() {
     return [
-      this.root,
       ...this.left.walk(),
+      this.root,
       ...this.right.walk(),
     ]
   }

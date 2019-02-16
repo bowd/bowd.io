@@ -1,7 +1,7 @@
 ---
 title: Leonardo numbers and Math I wish I knew
-date: '2019-02-16'
-spoiler: I should have actually attended my math classes in high school.
+date: '2019-02-15'
+spoiler: "Part I: Understanding the math behind Leonardo heaps"
 ---
 
 A couple of weeks ago I ended up on [this page](http://www.keithschwarz.com/smoothsort/) about smoothsort, _thanks [hackernews](https://news.ycombinator.com) you faithful time sync._ Smoothsort is widely considered to be the greatest of the greats when it comes to both execution time and memory. It manages $O(n\ lg\ n)$ optimized for $O(n)$ best case and $O(n)$ memory. 
@@ -45,13 +45,14 @@ $
 
 That's the gist of what we want to prove. In English, we need to prove that for any natural number $n$ there exists a sequence of $k$ numbers denoted $x_k$ such that the sum of the $x_i$-th Leonardo numbers ($L_{x_i}$) for $0\lt i\lt k$ is $n$, also we restrict the sequence to be of distinct monotonically increasing numbers by adding the condition $x_i < x_{i+1}$.
 
-I stared at these equations for a while. I knew there was some sort of induction proof out there. The Leonardo sequence formula hinted at that especially hard with the plus one in $L_i = L_{i-1}+L_{i-2} +1 $. But I couldn't figure it out. It felt link you transition from $n$ to $n+1$ by collapsing two consecutive Leonardo numbers into the next one, but there was one piece of the puzzle missing.
+I stared at these equations for a while. I knew there was some sort of induction proof out there. The Leonardo sequence formula hinted at that especially hard with the plus one in $L_i = L_{i-1}+L_{i-2} +1 $. But I couldn't figure it out. It felt like you transition from $n$ to $n+1$ by collapsing two consecutive Leonardo numbers into the next one, but there was one piece of the puzzle missing.
 
 Finally I started to do what every computer scientist knows best, actually build the sets of numbers manually and look for patterns. I did that on my notebook first but then I thought to myself, _you know javascript!_
 
 With a little help from React I built this nifty widget that computes the desired sequence $x_k$ for consecutive $n$. The first column is $n$, the next are the members of the set. You can use the toggle at the top to switch between the actual Leonardo numbers or the Leonardo sequence indices.
 
 <div><leonardo-vizualizer></leonardo-vizualizer></div>
+
 Source on [github](https://github.com/bowd/bowd.io/blob/master/src/components/helpers/leonardo/numbers.js).
 
 You might have noticed that for the $n=1$ I actually use $L_1$ instead of $L_0$ this is intentional and actually part of the nifty solution. You can already start to see some pretty clear patterns and recursion emerge. If you look closely at the numbers you'll see that between any two consecutive $n$ only one of two things happens:

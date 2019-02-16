@@ -1,10 +1,10 @@
 ---
 title: Leonardo heaps and how they work
 date: '2019-02-16'
-spoiler: They work pretty well
+spoiler: "Part II: Understanding the heap operations"
 ---
 
-In the [previous post](/leonardo-heaps-and-math) I talked about Leonardo heaps and the Leonardo numbers that they are based on. I proved that any number can be written as a sum of distinct Leonardo numbers, which means that any set of numbers can be transformed into one or more binary trees, each having $x_i$ nodes where $x_i$ is a Leonardo number. 
+In the [previous post](/leonardo-numbers) I talked about Leonardo heaps and the Leonardo numbers that they are based on. I proved that any number can be written as a sum of distinct Leonardo numbers, which means that any set of numbers can be transformed into one or more binary trees, each having $x_i$ nodes where $x_i$ is a Leonardo number. 
 
 For reasons that will become apparent later let's make a convention and consider that the set of binary trees is sorted in descending order of the size of each tree. Let's take a look at some example Leonardo heaps with 6 and 13 elements:
 
@@ -19,7 +19,7 @@ But in order for this set of binary trees to actually be a heap we need to defin
 
 ### Push
 
-Based on the induction proof in [previous post](/leonardo-heaps-and-math) we know that when adding a new element to our list of trees we have three possible scenarios:
+Based on the induction proof in [previous post](/leonardo-numbers) we know that when adding a new element to our list of trees we have three possible scenarios:
 
 1. A new tree is formed from the last two trees. This corresponds to case (1) of the proof.
 

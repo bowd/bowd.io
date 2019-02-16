@@ -8,7 +8,6 @@ import { LeonardoHeap } from './heap';
 class Heap extends React.Component {
   render() {
     const { heap } = this.props;
-    console.log(heap.trees)
 
     return (
       <div className="heap">
@@ -54,7 +53,6 @@ export class HeapPushExample extends React.Component {
     super(props)
     this.state = {
       heap: new LeonardoHeap(EXAMPLES_ADD[props.id].set),
-      nextElement: EXAMPLES_ADD[this.props.id].nextElement,
       added: false,
     }
   }
@@ -64,21 +62,18 @@ export class HeapPushExample extends React.Component {
     return (
       <div className="leonardo-widget">
         <div className="set">
-          { added == false ?
-            <button onClick={() => {
-              this.setState({
-                heap: this.state.heap.push(this.state.nextElement),
-                added: true
-              })
-            }}>Push {nextElement}</button>
-          : <button onClick={() => {
-              this.setState({
-                heap: this.state.heap.pop(),
-                added: false
-              })
-            }}>Reset</button>
-          }
-
+          <button onClick={() => {
+            this.setState({
+              heap: this.state.heap.push(Math.floor(Math.random() * 100)),
+              added: true
+            })
+          }}>Push</button>
+          <button onClick={() => {
+            this.setState({
+              heap: this.state.heap.pop(),
+              added: false
+            })
+          }}>Pop</button>
         </div>
         <Heap heap={heap} />
       </div>
