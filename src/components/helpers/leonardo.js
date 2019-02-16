@@ -96,7 +96,6 @@ const leonardoSets = (n) => {
       if (index == undefined) {
         console.log("Could not find any delta :(, this should never happen.")
       }
-      console.log(i, sets[i-delta], delta, index)
       sets[i] = [ ...sets[i-delta], index ].sort((a,b) => (a-b))
     }
   }

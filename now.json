@@ -18,8 +18,5 @@
       "headers": { "cache-control": "public, max-age=0, must-revalidate" }
     }
   ],
-  "alias": ["bowdio.now.sh", "www.bowd.io"],
-  "builds": [
-    { "use": "@now/static-build", "src": "package.json", "config": { "distDir": "public" } }
-  ]
+  "alias": ["bowdio.now.sh", "www.bowd.io"]
 }

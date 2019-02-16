@@ -109,7 +109,6 @@ class BlogPostTemplate extends React.Component {
     } = this.props.pageContext;
     const lang = post.fields.langKey;
     const html = post.htmlAst
-    console.log(html)
 
     // Replace original links with translated when available.
     // let html = post.html;
