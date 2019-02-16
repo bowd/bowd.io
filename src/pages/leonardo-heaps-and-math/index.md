@@ -8,7 +8,7 @@ A couple of weeks ago I ended up on [this page](http://www.keithschwarz.com/smoo
 
 The short story is that it uses an _in-place_ heap sort to achieve this but instead of a boring old binary heap it uses a mighty __Leonardo heap__.
 
-I will not go in depth about the Leonardo heaps as I want to follow up with a post about implementing all of this in Rust as my _hello world_, instead I will talk about the math behind this wonderfully quirky data structure.
+I will not go in depth about Leonardo heaps or smoothsort as I want to follow up with a post about implementing all of this in Rust as my _hello world_, instead I will talk about the math behind this wonderfully quirky data structure.
 
 ### The lesser known Leonardo numbers
 
