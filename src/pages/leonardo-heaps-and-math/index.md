@@ -4,10 +4,11 @@ date: '2019-02-15'
 spoiler: I should have actually attended my classes in high school.
 ---
 
-A couple of weeks ago I ended up on [this page](http://www.keithschwarz.com/smoothsort/) about smoothsort, _thanks [hackernews](news.ycombinator.com) you faithful time sync._ Smoothsort is widely considered to be the greatest of the greats when it comes to both execution time and memory. It manages $O(n\ lg\ n)$ optimized for $O(n)$ best case and $O(n)$ memory. 
+A couple of weeks ago I ended up on [this page](http://www.keithschwarz.com/smoothsort/) about smoothsort, _thanks [hackernews](https://news.ycombinator.com) you faithful time sync._ Smoothsort is widely considered to be the greatest of the greats when it comes to both execution time and memory. It manages $O(n\ lg\ n)$ optimized for $O(n)$ best case and $O(n)$ memory. 
 
 The short story is that it uses an _in-place_ heap sort to achieve this but instead of a boring old binary heap it uses a mighty Leonardo Heap[^1].
-I will not go in depth about the Leonardo Heap as I want to follow up with a post about implementing all of this in Rust as my _hello world_, instead I will talk about the math behind this wonderfully quirky data structure.
+
+I will not go in depth about the Leonardo heaps as I want to follow up with a post about implementing all of this in Rust as my _hello world_, instead I will talk about the math behind this wonderfully quirky data structure.
 
 [^1]:
     In [his page](http://www.keithschwarz.com/smoothsort/) Keith Schwarz refers to the structure as Leonardo Heaps (plural). I disagree because I like to think of the whole data structure as a heap, composed of a series of binary-trees which have sizes equal to Leonardo Numbers. This make more sense because he discusses poping and pushing on the whole _list of trees_.
@@ -15,7 +16,7 @@ I will not go in depth about the Leonardo Heap as I want to follow up with a pos
 
 ### The lesser known Leonardo numbers
 
-Everybody knows about Fibonacci, but the lesser known Leonardo numbers are fun as well:
+Everybody knows about Fibonacci, but the Leonardo numbers _have one up on them_, sorry couldn't help myself.
 
 $\displaystyle
 L_0 = 1 \newline
@@ -29,12 +30,12 @@ $\displaystyle
 \{ 1, 1, 3, 5, 9, 15, 25, 41, 67, 109... \}
 $
 
-Now in order for Leonardo heaps to work we must prove that:
+A Leonardo heap is a list of ordered binary trees each having $L_i$ nodes. Now in order for Leonardo heaps to work we must prove that:
 
-1. Any number $n$ can be written as a sum of distinct Leonardo numbers
-2. The set of Leonardo numbers that add up to $n$ has less than $lg\ n$ members
+1. __Any number $n$ can be written as a sum of distinct Leonardo numbers__. Thus we can take any set of $n$ numbers and arrange them into $k$ binary trees each having ${s_i, 0 \le i \lt k}$ nodes, such that $s_i$ is a Leonardo number.
+2. __For any $n$, the number of binary trees needed to form the heap ($k$) is at most $lg\ n$__. Knowing how many binary trees our Leonardo heap contains will help when calculating the asymptotic complexity of the push and pop operations.
 
-I really wanted to prove these two conjectures are true myself so I stopped reading and picked up a pencil. I have to say it was harder than it should have been, so let's get to it.
+I really wanted to prove these two conjectures myself so I stopped reading Keith's explanation and picked up a pencil. I have to say it was harder than it should have been.
 
 > Caveat: I'm pretty rusty when it comes to math so pretty please let me know if I get stuff wrong, there's a link to the github page of this article right at the end.
 
@@ -54,15 +55,13 @@ With a little help from React I built this nifty widget that computes the desire
 <leonardo-vizualizer></leonardo-vizualizer>
 Source on [github](https://github.com/bowd/bowd.io/blob/master/src/components/helpers/leonardo.js).
 
-You might have noticed that for the $n=1$ I actually use $L_1$ instead of $L_0$ this is intentional and actually part of the nifty solution. You can already start to see some pretty clear patterns and recursion emerge.
-
-If you look closely at the numbers you'll see that between any two consecutive $n$ only one of two things happen.
+You might have noticed that for the $n=1$ I actually use $L_1$ instead of $L_0$ this is intentional and actually part of the nifty solution. You can already start to see some pretty clear patterns and recursion emerge. If you look closely at the numbers you'll see that between any two consecutive $n$ only one of two things happens:
 
 1. $x_1$ = $x_0 + 1$, aka the first to indices are consecutive and they collapse into the next Leonardo number, because if we have two consecutive indices there $L_{x_0} + L_{x_1} + 1 = L_{x_1+1}$
 
-2. We add $L_0$ or $L_1$ at the front of the sequence, both can't be there because that's covered by (1).
+2. We add $L_0$ or $L_1$ at the front of the sequence, if both were already there that would fall into (1).
 
-The first situation isn't intuitively true because, when trying to transition from $n$ to $n+1$,  collapsing two consecutive Leonardo numbers might give you another number that's already in the sequence. But that's actually the missing piece. The way to prove this is by further restricting the properties of the sequence:
+The first situation isn't intuitively true because, when trying to transition from $n$ to $n+1$, collapsing two consecutive Leonardo numbers might give you another number that's already in the sequence. But that's actually the missing piece. If you look at all the numbers in the box you'll notice that we only ever get consecutive Leonardo numbers in the first two positions of the sequence, check it out. Thus we can prove the conjecture by further restricting its conditions:
 
 $\displaystyle
 \forall n \in ℕ, \exist x_k \textrm{ such that }\newline
@@ -72,11 +71,11 @@ $\displaystyle
 \textrm{(4) } x_0 = 0 \iff x_1 = 1
 $
 
-Let's break it down. (1) stays the same as before, number (2) and (3) ensure not only that the sequence is monotonically increasing but that two consecutive indices will _only_ occur at the beginning of the sequence. (4) is a little helper condition that states that we only use $L_0$ if we've already used $L_1$.
+Let's break it down. The first condition stays the same as before. The 2nd and 3rd ensure not only that the sequence is monotonically increasing but that two consecutive indices will _only_ occur at the beginning of the sequence. The 4th is a little helper condition that enforces $0$ to be part of the sequence only if $1$ already is. It helps us have a single valid transition when neither $0, L_0 = 1$ or $1, L_1 = 1$ are part of the sequence for $n$ and we're transitioning to $n+1$.
 
-For our induction we say that for $n=0$ all four statements hold true. Now we need to prove for $n+1$. This becomes trivial after the observation I made above because if we take as true that there's a sequence $x_k$ that satisfies all four conditions we have only these cases:
+For the induction part we say that for $n=0$, the empty sequence fulfils all conditions. Now we need to prove that for any $n$ with a sequence $x_k$, fulfilling the conditions, there's a sequence $y_l$ fulfilling the same conditions for $n+1$. This becomes trivial after the observations I made above, when looking at the changes in structure between consecutive values of $n$. We have these cases:
 
-1. $x_1$ = $x_0$ + 1
+1. $x_1$ = $x_0$ + 1, the first two elements of $x$ are consecutive
 
 If that's the case we can defined a sequence $y$ with $k-1$ elements. $y_0 = x_1 + 1$ and $y_i = x_i+1, i > 0$. It follows that:
 
@@ -96,7 +95,7 @@ $\displaystyle
 \sum_{\mathclap{0\le i\le k-1}} L_{y_i} = L_{1} +  \sum_{\mathclap{0\le i\le k}} = 1 + \sum_{\mathclap{0\le i\le k}}  L_{x_i}= n + 1
 $
 
-Which wraps up our proof nicely. All that's left now is to figure out if for the series $x_k, k < log_2(n)$, but I'll leave this as an exercise to the reader[^2].
+Which wraps up our proof nicely. All that's left now is to figure out if for the series $x_k, k <= lg\ n$, but I'll leave this as an exercise to the reader[^2].
 
 [^2]:
     Hint: write Leonardo numbers as a function of Fibonacci numbers.
