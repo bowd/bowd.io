@@ -12,7 +12,7 @@ I will not go in depth about the Leonardo heaps as I want to follow up with a po
 
 ### The lesser known Leonardo numbers
 
-Everybody knows about Fibonacci, but the Leonardo numbers _have one up on them_, sorry couldn't help myself.
+Everybody knows about Fibonacci, but the Leonardo numbers _have one up on them_... Sorry couldn't help myself.
 
 $\displaystyle
 L_0 = 1 \newline
