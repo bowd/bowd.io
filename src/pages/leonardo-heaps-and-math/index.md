@@ -1,18 +1,14 @@
 ---
-title: Leonardo Heaps and Math I wish I knew
+title: Leonardo heaps and Math I wish I knew
 date: '2019-02-15'
 spoiler: I should have actually attended my classes in high school.
 ---
 
 A couple of weeks ago I ended up on [this page](http://www.keithschwarz.com/smoothsort/) about smoothsort, _thanks [hackernews](https://news.ycombinator.com) you faithful time sync._ Smoothsort is widely considered to be the greatest of the greats when it comes to both execution time and memory. It manages $O(n\ lg\ n)$ optimized for $O(n)$ best case and $O(n)$ memory. 
 
-The short story is that it uses an _in-place_ heap sort to achieve this but instead of a boring old binary heap it uses a mighty Leonardo Heap[^1].
+The short story is that it uses an _in-place_ heap sort to achieve this but instead of a boring old binary heap it uses a mighty __Leonardo heap__.
 
 I will not go in depth about the Leonardo heaps as I want to follow up with a post about implementing all of this in Rust as my _hello world_, instead I will talk about the math behind this wonderfully quirky data structure.
-
-[^1]:
-    In [his page](http://www.keithschwarz.com/smoothsort/) Keith Schwarz refers to the structure as Leonardo Heaps (plural). I disagree because I like to think of the whole data structure as a heap, composed of a series of binary-trees which have sizes equal to Leonardo Numbers. This make more sense because he discusses poping and pushing on the whole _list of trees_.
-
 
 ### The lesser known Leonardo numbers
 
@@ -30,14 +26,17 @@ $\displaystyle
 \{ 1, 1, 3, 5, 9, 15, 25, 41, 67, 109... \}
 $
 
-A Leonardo heap is a list of ordered binary trees each having $L_i$ nodes. Now in order for Leonardo heaps to work we must prove that:
+A Leonardo heap consists of one or more [binary trees](https://en.wikipedia.org/wiki/Binary_tree) such that the number of nodes in each tree is a Leonardo number. Now in order for Leonardo heaps to work we must prove that:
 
 1. __Any number $n$ can be written as a sum of distinct Leonardo numbers__. Thus we can take any set of $n$ numbers and arrange them into $k$ binary trees each having ${s_i, 0 \le i \lt k}$ nodes, such that $s_i$ is a Leonardo number.
 2. __For any $n$, the number of binary trees needed to form the heap ($k$) is at most $lg\ n$__. Knowing how many binary trees our Leonardo heap contains will help when calculating the asymptotic complexity of the push and pop operations.
 
 I really wanted to prove these two conjectures myself so I stopped reading Keith's explanation and picked up a pencil. I have to say it was harder than it should have been.
 
-> Caveat: I'm pretty rusty when it comes to math so pretty please let me know if I get stuff wrong, there's a link to the github page of this article right at the end.
+### The proof
+
+> <span style="font-size: 16px; line-height: 16px;"> <b>Caveat</b>: I'm pretty rusty when it comes to math so pretty please let me know if I get stuff wrong. There's a "Did I get something wrong?" link at the end that points to the GitHub page where you can open an issue or submit a pull-request for this very article.
+
 
 $\displaystyle
 \forall n \in ℕ, \exist x_k \textrm{ such that }
@@ -95,10 +94,10 @@ $\displaystyle
 \sum_{\mathclap{0\le i\le k-1}} L_{y_i} = L_{1} +  \sum_{\mathclap{0\le i\le k}} = 1 + \sum_{\mathclap{0\le i\le k}}  L_{x_i}= n + 1
 $
 
-Which wraps up our proof nicely. All that's left now is to figure out if for the series $x_k, k <= lg\ n$, but I'll leave this as an exercise to the reader[^2].
+Which wraps up our proof nicely. All that's left now is to figure out if for the series $x_k, k <= lg\ n$, but I'll leave this as an exercise to the reader[^1].
 
-[^2]:
-    Hint: write Leonardo numbers as a function of Fibonacci numbers.
+[^1]:
+    <span style="font-size: 12px"> Hint: write Leonardo numbers as a function of Fibonacci numbers. </span>
 
 Tune in next time when I take all this further and talk about the Leonardo heap and how that's used in implementing the elusive _smoothsort_.
 
