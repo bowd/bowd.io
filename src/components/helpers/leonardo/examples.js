@@ -1,7 +1,7 @@
 import React from 'react';
-import Tree from "react-tree-graph";
-import 'react-tree-graph/dist/style.css'
-import range from "lodash/range";
+import Tree from 'react-tree-graph';
+import 'react-tree-graph/dist/style.css';
+import range from 'lodash/range';
 import { leonardoSets, leonardoNumbersTill } from './numbers';
 import { LeonardoHeap } from './heap';
 
@@ -21,78 +21,153 @@ class Heap extends React.Component {
             duration={200}
             nodeRadius={14}
             svgProps={{
-              transform: "rotate(90)"
+              transform: 'rotate(90)',
             }}
             textProps={{
-              width: "20px"
+              width: '20px',
             }}
           />
-          ))}
+        ))}
       </div>
-    )
+    );
   }
 }
 
-const EXAMPLES_ADD = {
-  "example-1": {
+const varHeap = n => range(1, n + 1).map(i => 'x' + i);
+const EXAMPLES = {
+  'show-1': {
+    set: varHeap(6),
+  },
+  'show-2': {
+    set: varHeap(13),
+  },
+  'push-1': {
     set: [29, 34, 56, 67, 10, 11, 13, 14, 17, 44, 12, 32, 89],
-    nextElement: 99
   },
-  "example-2": {
+  'push-2': {
     set: [29, 34, 56, 23, 33],
-    nextElement: 99
   },
-  "example-3": {
+  'push-3': {
     set: [29, 34, 56, 23, 33, 44],
-    nextElement: 99
-  }
-}
+  },
+  'balance-1': {
+    set: [29, 34, 56, 23, 33, 44],
+    nextToPush: 11,
+  },
+  'balance-2': {
+    set: [89, 34, 29, 37, 54, 23, 33, 11, 93, 24, 88, 65],
+  },
+};
 
-export class HeapPushExample extends React.Component {
+export const HeapShowExample = ({ id }) => (
+  <HeapExample example={EXAMPLES[id]} />
+);
+
+export const HeapPushExample = ({ id }) => (
+  <HeapExample example={EXAMPLES[id]} canPush={true} canPop={true} />
+);
+
+export const HeapBalanceExample = ({ id }) => (
+  <HeapExample
+    example={EXAMPLES[id]}
+    canPush={true}
+    canPop={true}
+    initialBalance={true}
+    balanceOnPush={false}
+    balanceOnPush={false}
+    canBalance={true}
+  />
+);
+
+export class HeapExample extends React.Component {
+  static defaultProps = {
+    canPush: false,
+    canPop: false,
+    canBalance: false,
+    balanceOnPush: false,
+    balanceOnPop: false,
+    initialBalance: false,
+  };
+
   constructor(props) {
-    super(props)
-    this.state = {
-      heap: new LeonardoHeap(EXAMPLES_ADD[props.id].set),
-      added: false,
-    }
+    super(props);
+    this.state = this.initialState(props);
   }
+
+  initialState(props) {
+    const heap = new LeonardoHeap(props.example.set, {
+      balance: props.initialBalance,
+    });
+    return {
+      heap: heap,
+      nextToPush: props.example.nextToPush || this.getNext(heap),
+    };
+  }
+
+  pop = () => {
+    const [newHeap, lastEl] = this.state.heap.pop({
+      balance: this.props.balanceOnPop,
+    });
+    this.setState({
+      heap: newHeap,
+      nextToPush: lastEl,
+    });
+  };
+
+  push = () => {
+    const newHeap = this.state.heap.push(this.state.nextToPush, {
+      balance: this.props.balanceOnPush,
+    });
+    this.setState({
+      heap: newHeap,
+      nextToPush: this.getNext(this.state.heap),
+    });
+  };
+
+  getNext(heap) {
+    let next = null;
+    const items = heap.toSet();
+    while (items.indexOf(next) > -1 || next == null) {
+      next = Math.floor(Math.random() * 100);
+    }
+    return next;
+  }
+
+  balance = () => {
+    const newHeap = this.state.heap.balance();
+    this.setState({
+      heap: newHeap,
+    });
+  };
+
+  reset = () => {
+    this.setState(this.initialState(this.props));
+  };
 
   render() {
     const { heap, nextElement, added } = this.state;
     return (
       <div className="leonardo-widget">
         <div className="set">
-          <button onClick={() => {
-            this.setState({
-              heap: this.state.heap.push(Math.floor(Math.random() * 100)),
-              added: true
-            })
-          }}>Push</button>
-          <button onClick={() => {
-            this.setState({
-              heap: this.state.heap.pop(),
-              added: false
-            })
-          }}>Pop</button>
+          {this.props.canPush ? (
+            <button onClick={this.push} disabled={this.state.heap.length > 13}>
+              Push ({this.state.nextToPush})
+            </button>
+          ) : null}
+          {this.props.canPop ? (
+            <button onClick={this.pop} disabled={this.state.heap.length == 0}>
+              Pop
+            </button>
+          ) : null}
+          {this.props.canBalance ? (
+            <button onClick={this.balance}>Balance</button>
+          ) : null}
+          {this.props.canPush || this.props.canPop || this.props.canBalance ? (
+            <button onClick={this.reset}>Reset</button>
+          ) : null}
         </div>
         <Heap heap={heap} />
       </div>
-    )
+    );
   }
-
 }
-
-const varHeap = (n) => range(1, n+1).map((i) => "x"+i)
-
-const EXAMPLES = {
-  'example-1': varHeap(6),
-  'example-2': varHeap(13),
-}
-
-export const HeapExample = ({id}) => (
-  <div className="leonardo-widget">
-    <Heap heap={new LeonardoHeap(EXAMPLES[id])} />
-  </div>
-)
-
-

@@ -24,7 +24,6 @@ body.light .leonardo-widget {
   font-family: monospace;
 }
 
-
 .leonardo-widget .row {
   height: 22px;
 }
@@ -62,12 +61,11 @@ body.light .leonardo-widget {
   margin-top: 5px;
 }
 
-
 .leonardo-widget .item-toggle span {
   display: inline-block;
   padding: 0px 5px;
   border-radius: 5px;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .leonardo-widget .item-toggle span[data-selected='true'] {
@@ -76,9 +74,7 @@ body.light .leonardo-widget {
 
 .leonardo-widget .set {
   padding: 20px 0 0 20px;
-
 }
-
 
 .leonardo-widget .heap {
   padding: 10px;
@@ -106,4 +102,3 @@ body.light .leonardo-widget {
 .leonardo-widget .heap circle {
   transform: translateX(8px);
 }
-

@@ -1,13 +1,17 @@
-import "./index.css";
-import { Vizualizer } from "./numbers.js";
-import { HeapExample, HeapPushExample } from './examples.js';
+import './index.css';
+import { Vizualizer } from './numbers.js';
+import {
+  HeapShowExample,
+  HeapBalanceExample,
+  HeapPushExample,
+} from './examples.js';
 
 export default {
-  namespace: "leonardo",
+  namespace: 'leonardo',
   components: {
     vizualizer: Vizualizer,
-    "heap-example": HeapExample,
-    "heap-push-example": HeapPushExample,
-  }
-}
-
+    'heap-show': HeapShowExample,
+    'heap-push': HeapPushExample,
+    'heap-balance': HeapBalanceExample,
+  },
+};

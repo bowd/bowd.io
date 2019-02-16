@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 import get from 'lodash/get';
-import rehypeReact from "rehype-react"
+import rehypeReact from 'rehype-react';
 
 import '../fonts/fonts-post.css';
 import Bio from '../components/Bio';
@@ -17,7 +17,7 @@ import {
   loadFontsForCode,
 } from '../utils/i18n';
 import helpers from '../components/helpers';
-require(`katex/dist/katex.min.css`)
+require(`katex/dist/katex.min.css`);
 
 const GITHUB_USERNAME = 'bowd';
 const GITHUB_REPO_NAME = 'bowd.io';
@@ -25,12 +25,12 @@ const systemFont = `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif`;
 
-const Counter = () => (<span> Hello world </span>);
+const Counter = () => <span> Hello world </span>;
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
   components: helpers,
-}).Compiler
+}).Compiler;
 
 class Translations extends React.Component {
   render() {
@@ -108,7 +108,7 @@ class BlogPostTemplate extends React.Component {
       translatedLinks,
     } = this.props.pageContext;
     const lang = post.fields.langKey;
-    const html = post.htmlAst
+    const html = post.htmlAst;
 
     // Replace original links with translated when available.
     // let html = post.html;
@@ -175,7 +175,7 @@ class BlogPostTemplate extends React.Component {
                 />
               )}
             </header>
-            { renderAst(html) }
+            {renderAst(html)}
             <footer>
               <p>
                 <a href={discussUrl} target="_blank" rel="noopener noreferrer">
