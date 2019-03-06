@@ -60,7 +60,7 @@
     "build": "rm -rf public && rm -rf .cache && gatsby build",
     "now-build": "gatsby build",
     "deploy": "yarn build && cp now.json public/ && cd public && now && now alias",
-    "deploy-draft": "yarn build && cp now.json public/ && cd public && now && now alias set draft-bowdio.now.sh draft.bowd.io",
+    "deploy-draft": "yarn build && cp now.json public/ && cd public && now && now alias set draft-bowdio.now.sh && now alias set draft.bowd.io",
     "dry": "yarn build && cp now.json public/ && cd public && now"
   },
   "husky": {
